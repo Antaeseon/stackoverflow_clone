@@ -57,5 +57,5 @@ type Person struct {
 }
 
 func (Person) TableName() string {
-	return "Person"
+	return "persons"
 }
