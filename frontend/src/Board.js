@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import BoardForm from "./BoardForm";
 import BoardItem from "./BoardItem";
-import axios from "axios";
 
 /*
     component files.
@@ -61,15 +60,6 @@ class Board extends Component {
 
   render() {
     const { boards, selectedBoard } = this.state;
-
-    axios
-      .get("http://127.0.0.1:8000/persons")
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
 
     return (
       <div>
