@@ -1,15 +1,22 @@
 package rest
 
 import (
+	//"github.com/gin-gonic/autotls"
+
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
 func RunAPI(address string) error {
-	//Get gin's default engine
+	h, err := NewHandler()
+	if err != nil {
+		return err
+	}
+	return RunAPIWithHandler(address, h)
+}
+
+func RunAPIWithHandler(address string, h HandlerInterface) error {
 	r := gin.Default()
-	//Define a handler
-	h, _ := NewHandler()
-	//load homepage
 
 	userGroup := r.Group("/user")
 	{
@@ -21,5 +28,7 @@ func RunAPI(address string) error {
 		usersGroup.POST("/signin", h.SignIn)
 		usersGroup.POST("", h.AddUser)
 	}
+	r.Use(static.ServeRoot("/", "../public/build"))
+
 	return r.Run(address)
 }

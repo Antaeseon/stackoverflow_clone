@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -66,7 +67,10 @@ func (h *Handler) SignIn(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	fmt.Println("로그인", customer.Email, " ", customer.Pass)
+
 	customer, err = h.db.SignInUser(customer.Email, customer.Pass)
+
 	if err != nil {
 		if err == dblayer.ErrINVALIDPASSWORD {
 			c.JSON(http.StatusForbidden, gin.H{"error": err.Error()})

@@ -181,7 +181,7 @@ class RegistrationForm extends React.Component {
               id="username"
               name="username"
               className="form-control"
-              placeholder="Antaeseon"
+              placeholder="John Doe"
               type="text"
               onChange={this.handleChange}
             />

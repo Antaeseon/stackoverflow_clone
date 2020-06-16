@@ -2,6 +2,7 @@ package dblayer
 
 import (
 	"errors"
+	"fmt"
 
 	"../models"
 	_ "github.com/go-sql-driver/mysql"
@@ -30,7 +31,9 @@ func (db *DBORM) GetCustomerByID(id int) (customer models.Customer, err error) {
 
 func (db *DBORM) AddUser(customer models.Customer) (models.Customer, error) {
 	//pass received password by reference so that we can change it to it's hashed version
+	fmt.Println("회원가입 변환 전 : ", customer.Pass)
 	hashPassword(&customer.Pass)
+	fmt.Println("회원가입 변환 후 : ", customer.Pass)
 	customer.LoggedIn = true
 	err := db.Create(&customer).Error
 	customer.Pass = ""
@@ -57,11 +60,13 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 
 	//Obtain a *gorm.DB object representing our customer's row
 	result := db.Table("Customers").Where(&models.Customer{Email: email})
+
+	var aa models.Customer
 	err = result.First(&customer).Error
 	if err != nil {
 		return customer, err
 	}
-
+	fmt.Println("asdfasdf123", customer.Email)
 	if !checkPassword(customer.Pass, pass) {
 		return customer, ErrINVALIDPASSWORD
 	}
@@ -78,6 +83,7 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 
 func checkPassword(existingHash, incomingPass string) bool {
 	//this method will return an error if the hash does not match the provided password string
+	fmt.Println(existingHash, " 흠흠 ", incomingPass)
 	return bcrypt.CompareHashAndPassword([]byte(existingHash), []byte(incomingPass)) == nil
 }
 
