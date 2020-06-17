@@ -96,23 +96,22 @@ export default class Navigation extends React.Component {
                 Search
               </Button>
             </Form>
+            {this.props.user.loggedin ? (
+              this.buildLoggedInMenu()
+            ) : (
+              <Button
+                variant="primary"
+                size="sm"
+                className="mr-sm-1"
+                onClick={() => {
+                  this.props.showModalWindow();
+                }}
+              >
+                Sign in
+              </Button>
+            )}
           </Navbar.Collapse>
         </Navbar>
-        {this.props.user.loggedin ? (
-          /*<p className="navbar-brand order-1 text-white my-auto">Welcome {this.props.user.name}</p>*/
-          this.buildLoggedInMenu()
-        ) : (
-          <Button
-            variant="primary"
-            size="sm"
-            className="mr-sm-1"
-            onClick={() => {
-              this.props.showModalWindow();
-            }}
-          >
-            Sign in
-          </Button>
-        )}
       </div>
     );
   }

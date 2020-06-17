@@ -71,7 +71,7 @@ class SingInForm extends React.Component {
       <div>
         {message}
         <form onSubmit={this.handleSubmit}>
-          <h5 className="mb-4">Basic Info</h5>
+          <h5 className="mb-4">Stack Overflow!!</h5>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input
@@ -181,7 +181,7 @@ class RegistrationForm extends React.Component {
               id="username"
               name="username"
               className="form-control"
-              placeholder="John Doe"
+              placeholder="Taeseon An"
               type="text"
               onChange={this.handleChange}
             />

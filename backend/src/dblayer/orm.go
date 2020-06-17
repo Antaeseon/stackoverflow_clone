@@ -30,7 +30,6 @@ func (db *DBORM) GetCustomerByID(id int) (customer models.Customer, err error) {
 }
 
 func (db *DBORM) AddUser(customer models.Customer) (models.Customer, error) {
-	//pass received password by reference so that we can change it to it's hashed version
 	fmt.Println("회원가입 변환 전 : ", customer.Pass)
 	hashPassword(&customer.Pass)
 	fmt.Println("회원가입 변환 후 : ", customer.Pass)
@@ -44,29 +43,19 @@ func hashPassword(s *string) error {
 	if s == nil {
 		return errors.New("Reference provided for hashing password is nil")
 	}
-	//converd password string to byte slice
 	sBytes := []byte(*s)
-	//Obtain hashed password
 	hashedBytes, err := bcrypt.GenerateFromPassword(sBytes, bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
-	//update password string with the hashed version
 	*s = string(hashedBytes[:])
 	return nil
 }
 
 func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err error) {
 
-	//Obtain a *gorm.DB object representing our customer's row
 	result := db.Table("Customers").Where(&models.Customer{Email: email})
 	fmt.Println(result.Rows())
-
-	var aa models.Customer
-
-	db.Table("customers").Where("id=1").Find(&aa)
-
-	fmt.Println("aa!!", aa.Email)
 
 	err = result.First(&customer).Error
 	if err != nil {
@@ -78,7 +67,6 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 	}
 
 	customer.Pass = ""
-	//update the loggedin field
 	err = result.Update("loggedin", 1).Error
 	if err != nil {
 		return customer, err
