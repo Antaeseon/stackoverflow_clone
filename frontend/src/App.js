@@ -30,7 +30,9 @@ class App extends React.Component {
       user: user,
       showSignInModal: false,
     });
+    console.log(newState);
     this.setState(newState);
+    console.log("상황" + this.state.user);
   }
 
   handleSignedOut() {

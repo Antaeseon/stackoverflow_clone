@@ -60,8 +60,14 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 
 	//Obtain a *gorm.DB object representing our customer's row
 	result := db.Table("Customers").Where(&models.Customer{Email: email})
+	fmt.Println(result.Rows())
 
 	var aa models.Customer
+
+	db.Table("customers").Where("id=1").Find(&aa)
+
+	fmt.Println("aa!!", aa.Email)
+
 	err = result.First(&customer).Error
 	if err != nil {
 		return customer, err
@@ -78,6 +84,7 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 		return customer, err
 	}
 	//return the new customer row
+	customer.LoggedIn = true
 	return customer, result.Find(&customer).Error
 }
 
