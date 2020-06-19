@@ -71,8 +71,9 @@ func (db *DBORM) SignInUser(email, pass string) (customer models.Customer, err e
 	if err != nil {
 		return customer, err
 	}
+
 	//return the new customer row
-	customer.LoggedIn = true
+	// customer.LoggedIn = true
 	return customer, result.Find(&customer).Error
 }
 
