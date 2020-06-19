@@ -67,24 +67,26 @@ class Board extends Component {
           selectedBoard={selectedBoard}
           onSaveData={this.handleSaveData}
         />
-        <table border="1">
-          <tbody>
-            <tr align="center">
-              <td width="50">No.</td>
-              <td width="300">Title</td>
-              <td width="100">Name</td>
-              <td width="100">Date</td>
-            </tr>
-            {boards.map((row) => (
-              <BoardItem
-                key={row.brdno}
-                row={row}
-                onRemove={this.handleRemove}
-                onSelectRow={this.handleSelectRow}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className="m-5">
+          <table border="1">
+            <tbody>
+              <tr align="center">
+                <td width="50">No.</td>
+                <td width="300">Title</td>
+                <td width="100">Name</td>
+                <td width="100">Date</td>
+              </tr>
+              {boards.map((row) => (
+                <BoardItem
+                  key={row.brdno}
+                  row={row}
+                  onRemove={this.handleRemove}
+                  onSelectRow={this.handleSelectRow}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
